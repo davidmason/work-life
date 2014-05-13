@@ -1,0 +1,28 @@
+{
+  "name": "work-life",
+  "version": "0.0.0",
+  "description": "A simple game about work-life balance.",
+  "main": "js/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "work",
+    "life"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davidmason/work-life.git"
+  },
+  "author": "http://github.com/davidmason",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davidmason/work-life/issues"
+  },
+  "homepage": "https://github.com/davidmason/work-life",
+  "dependencies": {
+    "crtrdg-entity": "^0.2.0",
+    "crtrdg-gameloop": "^0.2.0",
+    "inherits": "^2.0.1"
+  }
+}
