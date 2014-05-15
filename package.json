@@ -4,7 +4,8 @@
   "description": "A simple game about work-life balance.",
   "main": "js/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --progress --colors"
   },
   "keywords": [
     "work",
@@ -24,5 +25,9 @@
     "crtrdg-entity": "^0.2.0",
     "crtrdg-gameloop": "^0.2.0",
     "inherits": "^2.0.1"
+  },
+  "devDependencies": {
+    "webpack": "^1.1.10",
+    "webpack-dev-server": "^1.2.7"
   }
 }
