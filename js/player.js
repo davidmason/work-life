@@ -10,17 +10,6 @@ function Player(options) {
   this.velocity = { x: 0, y: 0 };
 
   this.friction = options.friction;
-
-  this.on('update', function (interval) {
-    this.emit('preupdate', interval);
-    if (this.velocity) {
-      this.move(this.velocity, interval);
-    }
-    if (this.options.friction) {
-      this.velocity.x -= this.options.friction * this.velocity.x * interval;
-      this.velocity.y -= this.options.friction * this.velocity.y * interval;
-    }
-  });
 }
 
 Player.prototype.keyboardInput = function (keyboard) {
@@ -30,4 +19,21 @@ Player.prototype.keyboardInput = function (keyboard) {
   if ('D' in keyboard.keysDown || '<right>' in keyboard.keysDown) {
     this.velocity.x = this.speed;
   }
+};
+
+Player.prototype.checkCollision = function () {
+  var entities = this.game.entities,
+      count = entities.length;
+
+  for (var i = 0; i < count; i++) {
+    if (entities[i] !== this) {
+      if (this.touches(entities[i])) {
+        this.emit('collision', entities[i]);
+      }
+    }
+  }
+};
+
+Player.prototype.touches = function (entity) {
+  
 };

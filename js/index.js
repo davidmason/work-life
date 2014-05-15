@@ -1,5 +1,6 @@
 var Game = require('crtrdg-gameloop'),
     Player = require('./player'),
+    Bubble = require('./bubble'),
     Keyboard = require('crtrdg-keyboard');
 
 
@@ -19,6 +20,29 @@ game.on('draw-background', function (context) {
 
 
 var keyboard = new Keyboard(game);
+
+keyboard.on('keydown', function (keyCode) {
+  if (keyCode === 'P') {
+    if (game.ticker.paused) game.resume();
+    else game.pause();
+  }
+});
+
+game.on('draw-foreground', function (context) {
+  //draw text "paused" in the center of the screen
+  if (game.ticker.paused) {
+    drawBigText(context, "Paused", 0.75);
+  }
+});
+
+function drawBigText(context, text, opacity) {
+  context.save();
+  context.font = '80px Montserrat, sans-serif';
+  context.textAlign = 'center';
+  context.fillStyle = 'rgba(0, 0, 0, ' + opacity + ')';
+  context.fillText(text, game.width/2, game.height/2);
+  context.restore();
+}
 
 
 
@@ -42,19 +66,35 @@ player.on('preupdate', function (interval) {
   // TODO check collisions with entities
 });
 
-var player2 = new Player({
-  position: { x: player.position.x + 30, y: player.position.y + 40 },
-  size: player.size,
-  color: '#000',
-  layer: 2,
+// TODO player needs to know if it collides with ANY bubbles.
+
+
+
+var bubble = new Bubble({
+  position: { x: parseInt(gameOptions.width, 10) / 2, y: -50 },
+  size: { x: 35, y: 35 },
+  color: '#888',
+  layer: 0,
   drawRectangle: true,
-  speed: 0.45,
-  friction: 0.02,
-  boundary: { left: 100, right: parseInt(gameOptions.width) - 100 }
-});
-player2.on('preupdate', function (interval) {
-  this.keyboardInput(keyboard);
+  speed: 0.3,
+  boundary: { bottom: parseInt(gameOptions.height, 10) + 100 }
 });
 
+
+// var player2 = new Player({
+//   position: { x: player.position.x + 30, y: player.position.y + 40 },
+//   size: player.size,
+//   color: '#000',
+//   layer: 2,
+//   drawRectangle: true,
+//   speed: 0.45,
+//   friction: 0.02,
+//   boundary: { left: 100, right: parseInt(gameOptions.width) - 100 }
+// });
+// player2.on('preupdate', function (interval) {
+//   this.keyboardInput(keyboard);
+// });
+
 player.addTo(game);
-player2.addTo(game);
+bubble.addTo(game);
+// player2.addTo(game);

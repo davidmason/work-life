@@ -29,6 +29,17 @@ function Entity(options) {
   if (options.drawRectangle) {
     this.on('draw-local', this.drawRect);
   }
+
+  this.on('update', function (interval) {
+    this.emit('preupdate', interval);
+    if (this.velocity) {
+      this.move(this.velocity, interval);
+    }
+    if (this.options.friction) {
+      this.velocity.x -= this.options.friction * this.velocity.x * interval;
+      this.velocity.y -= this.options.friction * this.velocity.y * interval;
+    }
+  });
 }
 
 Entity.prototype.draw = function(context) {
@@ -51,15 +62,19 @@ Entity.prototype.move = function (velocity, interval) {
   if (this.options.boundary) {
     if (this.options.boundary.left && this.position.x < this.options.boundary.left) {
       this.position.x = this.options.boundary.left;
+      this.emit('boundary-collision', 'left');
     }
     if (this.options.boundary.right && this.position.x > this.options.boundary.right) {
       this.position.x = this.options.boundary.right;
+      this.emit('boundary-collision', 'right');
     }
     if (this.options.boundary.top && this.position.y < this.options.boundary.top) {
       this.position.y = this.options.boundary.top;
+      this.emit('boundary-collision', 'top');
     }
     if (this.options.boundary.bottom && this.position.y > this.options.boundary.bottom) {
       this.position.y = this.options.boundary.bottom;
+      this.emit('boundary-collision', 'bottom');
     }
   }
 }
