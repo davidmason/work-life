@@ -1,4 +1,4 @@
-var Entity = require('crtrdg-entity'),
+var Entity = require('./entity'),
     inherits = require('inherits');
 
 module.exports = Player;
@@ -6,30 +6,28 @@ module.exports = Player;
 inherits(Player, Entity);
 
 function Player(options) {
-  this.position = {
-    x: options.position.x,
-    y: options.position.y
-  };
+  Player.super_.call(this, options);
+  this.velocity = { x: 0, y: 0 };
 
-  this.size = {
-    x: options.size.x,
-    y: options.size.y
-  };
+  this.friction = options.friction;
 
-  this.layer = options.layer;
-  this.color = options.color;
-
-  this.on('draw', this.draw);
+  this.on('update', function (interval) {
+    this.emit('preupdate', interval);
+    if (this.velocity) {
+      this.move(this.velocity, interval);
+    }
+    if (this.options.friction) {
+      this.velocity.x -= this.options.friction * this.velocity.x * interval;
+      this.velocity.y -= this.options.friction * this.velocity.y * interval;
+    }
+  });
 }
 
-Player.prototype.draw = function(context) {
-  context.save();
-  context.translate(this.position.x, this.position.y);
-  this.emit('draw-local', context);
-  context.restore();
+Player.prototype.keyboardInput = function (keyboard) {
+  if ('A' in keyboard.keysDown || '<left>' in keyboard.keysDown) {
+    this.velocity.x = -this.speed;
+  }
+  if ('D' in keyboard.keysDown || '<right>' in keyboard.keysDown) {
+    this.velocity.x = this.speed;
+  }
 };
-
-Player.prototype.drawRect = function(context) {
-  context.fillStyle = this.color;
-  context.fillRect(this.size.x / -2, this.size.y / -2, this.size.x, this.size.y);
-}
