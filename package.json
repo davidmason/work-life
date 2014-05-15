@@ -22,10 +22,12 @@
   },
   "homepage": "https://github.com/davidmason/work-life",
   "dependencies": {
+    "aabb-2d": "0.0.0",
     "crtrdg-entity": "git://github.com/davidmason/crtrdg-entity.git",
     "crtrdg-gameloop": "git://github.com/davidmason/crtrdg-gameloop.git",
     "crtrdg-keyboard": "0.0.2",
-    "inherits": "^2.0.1"
+    "inherits": "^2.0.1",
+    "xtend": "^3.0.0"
   },
   "devDependencies": {
     "webpack": "^1.1.10",

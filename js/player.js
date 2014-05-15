@@ -25,8 +25,10 @@ Player.prototype.checkCollision = function () {
   var entities = this.game.entities,
       count = entities.length;
 
+  this.bounds = this.getBounds();
+
   for (var i = 0; i < count; i++) {
-    if (entities[i] !== this) {
+    if (entities[i] !== this && entities[i].exists) {
       if (this.touches(entities[i])) {
         this.emit('collision', entities[i]);
       }
@@ -35,5 +37,5 @@ Player.prototype.checkCollision = function () {
 };
 
 Player.prototype.touches = function (entity) {
-  
+  return this.bounds.intersects(entity.getBounds());
 };
