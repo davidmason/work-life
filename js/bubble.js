@@ -1,6 +1,7 @@
 var Entity = require('./entity'),
     inherits = require('inherits'),
-    extend = require('xtend');
+    extend = require('xtend'),
+    gameOptions = require('./game-options');
 
 module.exports = Bubble;
 
@@ -14,7 +15,8 @@ var defaultOptions = {
   color: 'rgba(100, 100, 100, 0.25)',
   layer: 0,
   speed: 0.2,
-  boundary: { bottom: 700 },
+  boundary: { bottom: parseInt(gameOptions.height, 10) + 100 },
+  drawRectangle: false,
   value: 1
 };
 

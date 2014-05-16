@@ -2,15 +2,8 @@ var Game = require('crtrdg-gameloop'),
     Player = require('./player'),
     Bubble = require('./bubble'),
     Keyboard = require('crtrdg-keyboard'),
-    showFramerate = require('./framerate');
-
-
-var gameOptions = {
-  canvasId: 'game',
-  width: '800',
-  height: '600',
-  backgroundColor: 'black'
-}
+    showFramerate = require('./framerate'),
+    gameOptions = require('./game-options');
 
 var game = new Game(gameOptions);
 
@@ -76,26 +69,13 @@ function drawBigText(context, text, opacity) {
   context.restore();
 }
 
-var GOLDEN_RATIO = 1.61803398875;
-
-var player = new Player({
-  position: { x: parseInt(gameOptions.width, 10) / 2, y: parseInt(gameOptions.height, 10) * (4/5) },
-  size: { x: 20, y: 20*GOLDEN_RATIO },
-  color: '#fff',
-  layer: 1,
-  drawRectangle: true,
-  speed: 0.3,
-  friction: 0.01,
-  boundary: { left: 30, right: parseInt(gameOptions.width) - 30 }
-});
+var player = new Player();
 
 player.on('preupdate', function (interval) {
   this.keyboardInput(keyboard);
   this.checkCollision(); // fires 'collision' events
 });
 
-
-var lowerBoundary = parseInt(gameOptions.height, 10) + 100;
 
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -112,8 +92,6 @@ var spawnBubble = function spawnBubble () {
     type: type,
     color: typeColors[type],
     speed: Math.random() * 0.2 + 0.1,
-    boundary: { bottom: lowerBoundary },
-    value: 1
   })).addTo(game);
 };
 

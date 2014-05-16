@@ -16,7 +16,7 @@ var defaultOptions = {
 
 function Entity(options) {
   Entity.super_.call(this);
-
+  options = extend({}, defaultOptions, options);
 
   this.options = options;
 
@@ -46,8 +46,9 @@ function Entity(options) {
       this.move(this.velocity, interval);
     }
     if (this.options.friction) {
-      this.velocity.x -= this.options.friction * this.velocity.x * interval;
-      this.velocity.y -= this.options.friction * this.velocity.y * interval;
+      var friction = Math.pow(this.options.friction, interval/1000)
+      this.velocity.x = this.velocity.x * friction;
+      this.velocity.y = this.velocity.y * friction;
     }
   });
 }

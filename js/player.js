@@ -1,11 +1,27 @@
 var Entity = require('./entity'),
-    inherits = require('inherits');
+    inherits = require('inherits'),
+    extend = require('xtend'),
+    gameOptions = require('./game-options');
 
 module.exports = Player;
 
 inherits(Player, Entity);
 
+var GOLDEN_RATIO = 1.61803398875;
+
+var defaultOptions = {
+  size: { x: 20, y: 20*GOLDEN_RATIO },
+  color: '#fff',
+  layer: 1,
+  drawRectangle: true,
+  speed: 0.3,
+  friction: 0.01,
+  position: { x: parseInt(gameOptions.width, 10) / 2, y: parseInt(gameOptions.height, 10) * (4/5) },
+  boundary: { left: 30, right: parseInt(gameOptions.width) - 30 }
+};
+
 function Player(options) {
+  options = extend({}, defaultOptions, options);
   Player.super_.call(this, options);
   this.velocity = { x: 0, y: 0 };
 
