@@ -32,6 +32,23 @@ function Bubble(options) {
     }
   });
 
+  this.on('collision', function () {
+    if (this.options.chain) {
+      var newOptions = extend(
+        {},
+        this.options,
+        {
+          chain: this.options.chain - 1,
+          position: {
+            x: this.position.x,
+            y: this.position.y - 100
+          }
+        }
+      );
+      (new Bubble(newOptions)).addTo(this.game);
+    }
+  });
+
   this.on('draw-local', this.drawCircle);
 }
 

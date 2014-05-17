@@ -38,14 +38,15 @@ Player.prototype.keyboardInput = function (keyboard) {
 };
 
 Player.prototype.checkCollision = function () {
-  var entities = this.game.entities,
-      count = entities.length;
+  var entities = this.game.entities;
 
   this.bounds = this.getBounds();
 
-  for (var i = 0; i < count; i++) {
+  // loop is reversed since collisions may remove entities from the list
+  for (var i = entities.length - 1; i >= 0; i--) {
     if (entities[i] !== this && entities[i].exists) {
       if (this.touches(entities[i])) {
+        entities[i].emit('collision');
         this.emit('collision', entities[i]);
       }
     }

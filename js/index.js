@@ -4,15 +4,19 @@ var Game = require('crtrdg-gameloop'),
     Keyboard = require('crtrdg-keyboard'),
     showFramerate = require('./framerate'),
     gameOptions = require('./game-options'),
-    page = require('visibility')();
+    page = require('visibility')(),
+    Time = require('crtrdg-time');
 
 var game = new Game(gameOptions);
+var time = new Time(game);
 
 showFramerate(game);
 
 game.on('draw-background', function (context) {
   context.fillStyle = gameOptions.backgroundColor;
-  context.fillRect(0, 0, gameOptions.width, gameOptions.height);
+  context.fillRect(0, 0, gameOptions.width, gameOptions.height - 100);
+  context.fillStyle = gameOptions.groundColor;
+  context.fillRect(0, gameOptions.height - 100, gameOptions.width, 100);
 });
 
 var keyboard = new Keyboard(game);
@@ -101,6 +105,23 @@ var spawnBubble = function spawnBubble () {
   })).addTo(game);
 };
 
+var newBubbleAtPos = function (x, y) {
+  var bubble = new Bubble({
+    position: {
+      x: x,
+      y: y
+    },
+    size: { x: 40, y: 40 },
+    type: types[0],
+    color: typeColors[types[0]],
+    speed: 0.2,
+    value: 1,
+    chain: 2
+  });
+  return bubble;
+};
+
+
 player.on('collision', function (entity) {
   // a collision with a bubble
   // NOTE: may not be a new collision (but it will be if the bubble is destroyed immediately)
@@ -108,9 +129,36 @@ player.on('collision', function (entity) {
     score[entity.options.type] += entity.options.value;
   }
   entity.remove();
-  spawnBubble();
 });
 
 player.addTo(game);
-setInterval(spawnBubble, 200);
 
+
+var bbl = newBubbleAtPos;
+function newWave () {
+  return {
+    duration: 2000,
+    bubbles: [
+      bbl(100, -50),
+      bbl(200, -100),
+      bbl(300, -150),
+      bbl(400, -200)
+    ]
+  }
+}
+
+var nextWaveTime = 2000;
+
+game.on('update', function (interval) {
+  if (time.millis > nextWaveTime) {
+    var wave = newWave();
+    nextWaveTime = time.millis + wave.duration;
+    spawnBubbles(wave.bubbles);
+  }
+});
+
+function spawnBubbles(bubbles) {
+  for (var i = 0; i < bubbles.length; i++) {
+    bubbles[i].addTo(game);
+  }
+}
