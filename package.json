@@ -27,6 +27,7 @@
     "crtrdg-gameloop": "git://github.com/davidmason/crtrdg-gameloop.git",
     "crtrdg-keyboard": "0.0.2",
     "inherits": "^2.0.1",
+    "visibility": "0.0.0",
     "xtend": "^3.0.0"
   },
   "devDependencies": {

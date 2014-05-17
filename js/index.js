@@ -3,7 +3,8 @@ var Game = require('crtrdg-gameloop'),
     Bubble = require('./bubble'),
     Keyboard = require('crtrdg-keyboard'),
     showFramerate = require('./framerate'),
-    gameOptions = require('./game-options');
+    gameOptions = require('./game-options'),
+    page = require('visibility')();
 
 var game = new Game(gameOptions);
 
@@ -22,6 +23,11 @@ keyboard.on('keydown', function (keyCode) {
     else game.pause();
   }
 });
+
+page.on('hide', function () {
+  game.pause();
+});
+
 
 var types = [
   'wealth',
@@ -64,7 +70,7 @@ function drawBigText(context, text, opacity) {
   context.save();
   context.font = '80px Montserrat, sans-serif';
   context.textAlign = 'center';
-  context.fillStyle = 'rgba(0, 0, 0, ' + opacity + ')';
+  context.fillStyle = 'rgba(200, 200, 200, ' + opacity + ')';
   context.fillText(text, game.width/2, game.height/2);
   context.restore();
 }
@@ -107,3 +113,4 @@ player.on('collision', function (entity) {
 
 player.addTo(game);
 setInterval(spawnBubble, 200);
+
