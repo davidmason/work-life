@@ -32,7 +32,9 @@
     "crtrdg-gameloop": "^0.2.2",
     "crtrdg-keyboard": "^0.0.2",
     "crtrdg-time": "^0.0.0",
+    "file-loader": "^0.5.1",
     "inherits": "^2.0.1",
+    "url-loader": "^0.5.5",
     "visibility": "0.0.0",
     "xtend": "^3.0.0"
   },

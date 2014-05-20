@@ -2,7 +2,11 @@ var Entity = require('./entity'),
     inherits = require('inherits'),
     extend = require('xtend'),
     gameOptions = require('./game-options'),
-    testIcon = document.getElementById('testicon');
+    testIcon = document.getElementById('testicon'),
+    bundleIcon = require('../img/me.png');
+
+var bundleImg = new Image();
+bundleImg.src = bundleIcon;
 
 module.exports = Bubble;
 
@@ -56,7 +60,8 @@ function Bubble(options) {
 
 Bubble.prototype.drawCircle = function (context) {
   // temp: drawing test image
-  context.drawImage(testIcon, (this.size.x - testIcon.width) / 2, (this.size.y - testIcon.height) / 2);
+  var img = bundleImg ;// testIcon;
+  context.drawImage(img, (this.size.x - img.width) / 2, (this.size.y - img.height) / 2);
 
   context.beginPath();
   context.arc(this.size.x / 2, this.size.y / 2, this.size.x / 2, 0, 2 * Math.PI, false);
