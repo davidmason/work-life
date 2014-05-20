@@ -2,7 +2,12 @@
   "name": "work-life",
   "version": "0.0.0",
   "description": "A simple game about work-life balance.",
-  "main": "js/index.js",
+  "main": "index.html",
+  "window": {
+    "toolbar": false,
+    "width": 850,
+    "height": 600
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --progress --colors"
