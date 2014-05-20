@@ -1,9 +1,11 @@
 var Entity = require('./entity'),
     inherits = require('inherits'),
     extend = require('xtend'),
-    gameOptions = require('./game-options');
+    gameOptions = require('./game-options'),
+    testIcon = document.getElementById('testicon');
 
 module.exports = Bubble;
+
 
 inherits(Bubble, Entity);
 
@@ -53,6 +55,9 @@ function Bubble(options) {
 }
 
 Bubble.prototype.drawCircle = function (context) {
+  // temp: drawing test image
+  context.drawImage(testIcon, (this.size.x - testIcon.width) / 2, (this.size.y - testIcon.height) / 2);
+
   context.beginPath();
   context.arc(this.size.x / 2, this.size.y / 2, this.size.x / 2, 0, 2 * Math.PI, false);
   context.fillStyle = this.color;
