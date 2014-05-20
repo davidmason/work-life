@@ -53,7 +53,9 @@ var score = {
 
 game.on('draw-foreground', function (context) {
   //draw text "paused" in the center of the screen
-  if (game.ticker.paused) {
+  // FIXME drawing now seems to stop upon pause, so the paused message is never shown
+  //       could just put an element over the canvas with the paused message (and partial opacity)
+  if (this.paused) {
     drawBigText(context, "Paused", 0.75);
   }
 
