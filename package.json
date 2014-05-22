@@ -28,6 +28,7 @@
   "homepage": "https://github.com/davidmason/work-life",
   "dependencies": {
     "aabb-2d": "0.0.0",
+    "brfs": "^1.1.1",
     "bundle-loader": "^0.5.0",
     "crtrdg-entity": "^0.2.1",
     "crtrdg-gameloop": "^0.2.2",
