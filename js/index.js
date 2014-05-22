@@ -164,3 +164,36 @@ function spawnBubbles(bubbles) {
     bubbles[i].addTo(game);
   }
 }
+
+
+
+// TODO spawn bubbles in specific waves
+// a wave is a 2D distribution of bubbles in the space above the screen
+// a wave lasts for a specific time, after which another wave of the same type may occur (some waves are special so have no type and do not block other waves)
+// each bubble can have some variation in its position and speed,
+// but keep it fairly tight for any fancy shapes - just enough variation to make it feel a bit real
+// also sometimes have speed and position modified together so that things with wildly
+// different speeds can come together into specific shapes when they are near the player
+// (just figure out the mathematics for being at a specific location at a specific time given a random speed)
+// a wave can have specific types of bubbles at specific places, and specific values of bubbles at specific places,
+// but the range of values will be constrained by the player stats (e.g. career stat may limit value to 2, so a bubble
+// that should be max wealth would be worth only 2, and a medium-wealth bubble would be worth only 1).
+// there could also be partial waves that define only a single type of bubble, that can be composed to make a variety
+// of waves. This would allow for more variety with different combinations of stats, so that you can have regular job
+// waves mixing with either early-dating waves or marriage waves (among others).
+
+
+// TODO make a JSON representation of a bubble that has:
+//  - size
+//  - type/color
+//  - value (in 1 or multiple currencies)
+//  - icon image
+//  - % chance of being social
+//  - other bubbles it can spawn
+//    - maybe represent chaining separately
+
+// TODO make JSON representation of a wave, using bubble names that look up bubble definitions above
+
+// TODO define equations for figuring out which level and type of bubbles to spawn
+
+// TODO add pop animation to bubbles
