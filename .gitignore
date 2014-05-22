@@ -19,8 +19,9 @@ coverage
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
-# Compiled bundle
+# Compiled bundle and source map
 bundle.js
+bundle.js.map
 
 # Dependency directory
 # Deployed apps should consider commenting this line out:
