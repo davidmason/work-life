@@ -5,6 +5,12 @@ var Entity = require('./entity'),
     testIcon = document.getElementById('testicon'),
     bundleIcon = require('../img/me.png');
 
+// This is how to load images as base64 url strings using browserify
+//   this requires brfs transform to be run (e.g. browserify -t brfs index.js -o bundle.js)
+// var fs = require('fs');
+// it seems to have trouble if I put this in a variable list, but is ok in its own statement
+// var bundleIcon = 'data:image/png;base64,' + fs.readFileSync(__dirname + '/../img/me.png', 'base64');
+
 var bundleImg = new Image();
 bundleImg.src = bundleIcon;
 
